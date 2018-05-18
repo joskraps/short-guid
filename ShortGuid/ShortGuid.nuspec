@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>SGuid</id>
+    <version>$version$</version>
+    <title>Short Guid Type</title>
+    <authors>Joel Sparks</authors>
+    <owners>Joel Sparks</owners>
+    <projectUrl>https://github.com/joskraps/short-guid</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Provides a lighter weight alternative to transmitting guids to web applications</description>
+    <releaseNotes>Initial Release</releaseNotes>
+    <copyright>Copyright 2018</copyright>
+    <tags></tags>
+  </metadata>
+</package>

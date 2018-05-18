@@ -1,0 +1,8 @@
+ShortGuid/obj/
+ShortGuid.Tests/obj/
+.vs/
+ShortGuid.Tests/bin/
+*.nupkg
+ShortGuid/bin/
+packages/
+ShortGuid/nuget.exe
