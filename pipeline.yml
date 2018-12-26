@@ -1,32 +1,31 @@
-# Build ASP.NET Core project using Azure Pipelines
-# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core?view=vsts
-
 pool:
-  vmImage: 'vs2017-win2016'
-  
+  vmImage: vs2017-win2016
 variables:
-  buildConfiguration: 'Release'
-
+  buildConfiguration: Release
 steps:
-- script: |
-    dotnet build --configuration $(buildConfiguration)
-    dotnet test ShortGuid.Tests --configuration $(buildConfiguration) --logger trx
-    dotnet publish --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory) --framework net46
-    dotnet publish --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory) --framework netcoreapp2.1
+  - script: >
+      dotnet build --configuration $(buildConfiguration)
 
-- task: PublishTestResults@2
-  condition: succeededOrFailed()
-  inputs:
-    testRunner: VSTest
-    testResultsFiles: '**/*.trx'
+      dotnet test ShortGuid.Tests --configuration $(buildConfiguration) --logger
+      trx
 
-- task: PublishBuildArtifacts@1
+      dotnet publish --configuration $(buildConfiguration) --output
+      $(Build.ArtifactStagingDirectory) --framework net46
 
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'pack'
-    configuration: '$(buildConfiguration)'
-    packagesToPack: '**/ShortGuid.csproj'
-    versioningScheme: byEnvVar
-    versionEnvVar: Build.BuildNumber
-    verbosityPack: 'detailed'
+      dotnet publish --configuration $(buildConfiguration) --output
+      $(Build.ArtifactStagingDirectory) --framework netcoreapp2.1
+  - task: PublishTestResults@2
+    condition: succeededOrFailed()
+    inputs:
+      testRunner: VSTest
+      testResultsFiles: '**/*.trx'
+  - task: DotNetCoreCLI@2
+    condition: succeededOrFailed()
+    inputs:
+      command: pack
+      configuration: $(buildConfiguration)
+      packagesToPack: '**/ShortGuid.csproj'
+      versioningScheme: byEnvVar
+      versionEnvVar: Build.BuildNumber
+      verbosityPack: detailed
+  - task: PublishBuildArtifacts@1
