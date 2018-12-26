@@ -3,17 +3,17 @@ pool:
 variables:
   buildConfiguration: Release
 steps:
-
-- task: NuGetToolInstaller@0
-  displayName: "NuGet use 4.6.2"
-  inputs:
-    versionSpec: 4.6.2
   - script: >
       dotnet build --configuration $(buildConfiguration)
-      dotnet test ShortGuid.Tests --configuration $(buildConfiguration) --logger trx
-      dotnet publish --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory) --framework net46
-      dotnet publish --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory) --framework netcoreapp2.1
 
+      dotnet test ShortGuid.Tests --configuration $(buildConfiguration) --logger
+      trx
+
+      dotnet publish --configuration $(buildConfiguration) --output
+      $(Build.ArtifactStagingDirectory) --framework net46
+
+      dotnet publish --configuration $(buildConfiguration) --output
+      $(Build.ArtifactStagingDirectory) --framework netcoreapp2.1
   - task: PublishTestResults@2
     condition: succeededOrFailed()
     inputs:
@@ -29,6 +29,3 @@ steps:
       versionEnvVar: Build.BuildNumber
       verbosityPack: detailed
   - task: PublishBuildArtifacts@1
-    inputs:
-      pathtoPublish: '$(Build.ArtifactStagingDirectory)' 
-      #artifactName: 'drop' 
