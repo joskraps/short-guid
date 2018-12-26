@@ -6,3 +6,4 @@ ShortGuid.Tests/bin/
 ShortGuid/bin/
 packages/
 ShortGuid/nuget.exe
+*.trx
