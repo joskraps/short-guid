@@ -22,10 +22,18 @@ steps:
 
 - task: PublishBuildArtifacts@1
 
-- script: dotnet pack --include-symbols /p:Configuration=release /p:PackageVersion=$(Build.BuildNumber) --verbosity Detailed
-
-- task: NuGetCommand@2
+- task: DotNetCoreCLI@2
   inputs:
-    command: push
+    command: 'pack'
+    configuration: '$(buildConfiguration)'
+    packagesToPack: '**/ShortGuid.csproj'
     versioningScheme: byEnvVar
     versionEnvVar: Build.BuildNumber
+    verbosityPack: 'detailed'
+
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'push'
+    nuGetFeedType: 'external'
+    packagesToPush: '$(build.artifactStagingDirectory)/*.nupkg'
+    publishFeedCredentials: 'oy2behuhcbskg5xv6bxamekaj5cg7siupdkojoegxish4y'
