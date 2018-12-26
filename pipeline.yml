@@ -36,4 +36,4 @@ steps:
     command: 'push'
     nuGetFeedType: 'external'
     packagesToPush: '$(build.artifactStagingDirectory)/*.nupkg'
-    publishFeedCredentials: 'oy2behuhcbskg5xv6bxamekaj5cg7siupdkojoegxish4y'
+    publishFeedCredentials: 'MahNuget'
