@@ -21,3 +21,11 @@ steps:
     testResultsFiles: '**/*.trx'
 
 - task: PublishBuildArtifacts@1
+
+- script: dotnet pack --include-symbols /p:Configuration=release /p:PackageVersion=$(Build.BuildNumber) --verbosity Detailed
+
+- task: NuGetCommand@2
+  inputs:
+    command: push
+    versioningScheme: byEnvVar
+    versionEnvVar: Build.BuildNumber
